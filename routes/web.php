@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    $videos = Video::all();
+    return view('home', ['videos' => $videos]);
 });

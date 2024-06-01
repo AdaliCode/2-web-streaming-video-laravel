@@ -12,6 +12,24 @@
             font-weight: 400;
             font-style: normal;
         }
+        #movieRank {
+            position: relative;
+        }
+        #movieRank .overlay-cover {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #movieRank .overlay-cover h5 {
+            color: white;
+            position: absolute;
+            font-size: 20px;
+        }
     </style>
   </head>
   <body>

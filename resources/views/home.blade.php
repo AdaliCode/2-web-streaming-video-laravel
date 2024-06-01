@@ -3,12 +3,17 @@
 @section('container')
   <div class="row mb-3 justify-content-center" id="top10">
       <h1>Top 10</h1>
-      @foreach ($videos as $key => $item)
+      @foreach ($top10videos as $key => $item)
         <div class="col-md-3 mb-3">
-          <div class="card">
-            <img src="cover.jpeg" class="card-img-top" alt="...">
+          <div class="card h-100">
+            <div id="movieRank">
+              <img src="cover.jpeg" class="card-img-top" alt="...">
+              <div class="overlay-cover ms-2">
+                <h5 class="card-title">Top {{ $loop->iteration }}</h5>
+              </div>
+            </div>
             <div class="card-body">
-              <h5 class="card-title">Top {{ $key + 1 }} - {{ $item->title }}</h5>
+              <h5 class="card-title">{{ $item->title }}</h5>
               <h6 class="card-subtitle text-secondary">Drama Korea</h6>
             </div>
           </div>

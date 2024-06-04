@@ -16,53 +16,40 @@ class VideoSeeder extends Seeder
      */
     public function run(): void
     {
-        $now = Carbon::now();
+        function getVideoData($title = "High School Return of a Gangster", $release = '2024/05/24', $category = 'series', $rating = 9.5)
+        {
+            $now = Carbon::now();
 
-        $video = new Video();
-        $video->title = "High School Return of a Gangster";
-        $video->slug = Str::slug($video->title);
-        $video->rating = 9.6;
-        $video->save();
+            $video = new Video();
+            $video->title = $title;
+            $video->slug = Str::slug($video->title);
+            $video->release = Carbon::create($release);
+            $video->category = $category;
+            // jika udah tayang
+            if ($video->release->diffInHours($now) >= 0) {
+                if ($video->release->diffInDays($now) % 7 == 0) {
+                    $video->episodeNow = $video->release->diffInWeeks($now) + 1;
+                } else {
+                    $video->episodeNow = $video->release->diffInWeeks($now);
+                }
+            }
+            $video->rating = $rating;
+            $video->save();
+        }
 
-        $video = new Video();
-        $video->title = "Lovely Runner";
-        $video->slug = Str::slug($video->title);
-        $video->save();
-
-        $video = new Video();
-        $video->title = "Bitter Sweet Hell";
-        $video->slug = Str::slug($video->title);
-        $video->release = Carbon::create('2024/05/24');
-        $video->episodeNow = ceil($video->release->diffInWeeks($now));
-        $video->rating = 9;
-        $video->save();
-
-        $video = new Video();
-        $video->title = "Dreaming of Freaking Fairytale";
-        $video->slug = Str::slug($video->title);
-        $video->release = Carbon::create('2024/05/31');
-        $video->episodeNow = ceil($video->release->diffInWeeks($now));
-        $video->rating = 9.4;
-        $video->save();
-
-        $video = new Video();
-        $video->title = "The Midnight Romance in Hagwon";
-        $video->slug = Str::slug($video->title);
-        $video->rating = 9.3;
-        $video->save();
-
-        $video = new Video();
-        $video->title = "Whenever Possible";
-        $video->slug = Str::slug($video->title);
-        $video->category = 'variety';
-        $video->release = Carbon::create('2024/04/23');
-        $video->episodeNow = ceil($video->release->diffInWeeks($now));
-        $video->rating = 8;
-        $video->save();
+        // episode 2, 24/4/24, jam indonesia
+        getVideoData();
+        getVideoData(title: "Lovely Runner", rating: 9.6);
+        getVideoData(title: "Bitter Sweet Hell", rating: 9);
+        getVideoData(title: "Dreaming of Freaking Fairytale", release: '2024/05/31', rating: 9.4);
+        getVideoData(title: "The Midnight Romance in Hagwon", rating: 9.3);
+        getVideoData(title: "The Player 2: Master of Swindlers", release: '2024/06/4');
+        getVideoData(title: "Whenever Possible", release: '2024/04/23 20:20', category: 'variety', rating: 8);
+        getVideoData(title: "Abracadabra", release: '2024/06/18');
 
         $video = Video::factory()->count(20)->state(new Sequence(
-            ['category' => 'variety'],
-            ['category' => 'series'],
+            ['category' => 'variety', 'release' =>  Carbon::create('2024/06/7')],
+            ['category' => 'series', 'release' =>  Carbon::create('2024/06/17')],
         ))->create();
     }
 }

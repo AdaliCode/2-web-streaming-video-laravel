@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('slug', 100)->unique();
-            $table->string('category', 100)->default('series');
-            $table->date('release')->default('2024/5/29');
+            $table->string('category', 100);
+            $table->dateTime('release');
             $table->integer('episodeNow')->default(0);
             $table->text('description')->nullable();
-            $table->float('rating')->nullable();
+            $table->float('rating');
             $table->timestamps();
         });
     }

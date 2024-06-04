@@ -26,7 +26,7 @@
         }
 
         #movieRank .overlay-cover h5 {
-            color: white;
+            color: rgba(255, 68, 0, 0.788);
             position: absolute;
             font-size: 20px;
         }

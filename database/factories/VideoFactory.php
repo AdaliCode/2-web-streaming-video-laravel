@@ -21,7 +21,8 @@ class VideoFactory extends Factory
         $slug =  Str::slug($title);
         return [
             'title' => $title,
-            'slug' => $slug
+            'slug' => $slug,
+            'rating' => fake()->randomFloat(1, 0, 10)
         ];
     }
 }

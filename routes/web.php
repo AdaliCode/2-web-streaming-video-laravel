@@ -9,6 +9,7 @@ Route::get('/', function () {
     $series = Video::query()->where('category', 'series')->paginate(8);
     $variety = Video::query()->where('category', 'variety')->paginate(4);
     $comingSoon = Video::orderBy('release', 'ASC')->where('episodeNow', 0)->paginate(4);
+    $romanceGenre = Video::query()->where('genre', 'romance')->paginate(8);
 
     // dd($comingSoon);
     return view('home', [
@@ -16,5 +17,6 @@ Route::get('/', function () {
         'seriesvideos' => $series,
         'variety' => $variety,
         'comingSoon' => $comingSoon,
+        'romanceGenre' => $romanceGenre,
     ]);
 });

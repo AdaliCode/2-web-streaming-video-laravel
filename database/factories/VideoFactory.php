@@ -22,7 +22,7 @@ class VideoFactory extends Factory
         return [
             'title' => $title,
             'slug' => $slug,
-            'rating' => fake()->randomFloat(1, 0, 10)
+            // 'rating' => fake()->randomFloat(1, 0, 10)
         ];
     }
 }

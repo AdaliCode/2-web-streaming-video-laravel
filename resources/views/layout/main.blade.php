@@ -12,10 +12,10 @@
             font-weight: 400;
             font-style: normal;
         }
-        #movieRank {
+        #coverOverlay {
             position: relative;
         }
-        #movieRank .overlay-cover {
+        #coverOverlay .overlay-cover {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -25,8 +25,8 @@
             width: 100%;
         }
 
-        #movieRank .overlay-cover h5 {
-            color: rgba(255, 68, 0, 0.788);
+        #coverOverlay .overlay-cover h5 {
+            color: blue;
             position: absolute;
             font-size: 20px;
         }

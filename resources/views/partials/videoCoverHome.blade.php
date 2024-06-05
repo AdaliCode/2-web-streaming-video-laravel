@@ -4,7 +4,7 @@
       <div class="col-md-3 mb-3">
         <div class="card h-100">
           <div id="coverOverlay">
-            <img src="cover.jpeg" class="card-img-top" alt="...">
+            <img src="cover/<?= ($item->category == 'variety') ? 'variety.avif' : 'series.jpeg' ; ?>" class="card-img-top" alt="...">
             <div class="overlay-cover ms-2">
               <h5 class="card-title">
                 @if ($overlayTextType == 'rank')
@@ -13,18 +13,15 @@
                     Episode {{ $item->episodeNow }}
                 @else
                     {{-- time release or Soon --}}
-                    @if (Carbon\Carbon::create($item->release)->diffInWeeks(Carbon\Carbon::now()) > -1)
-                        <h5 class="card-title">{{ Carbon\Carbon::parse($item->release)->format('d M') }}</h5>
-                    @else
-                        <h5 class="card-title">Soon</h5>
-                    @endif
-                @endif </h5>
+                    <?= (Carbon\Carbon::create($item->release)->diffInWeeks(Carbon\Carbon::now()) > -1) ? Carbon\Carbon::parse($item->release)->format('d M') : 'Soon' ; ?>
+                @endif
+              </h5>
             </div>
           </div>
           <div class="card-body">
             <h5 class="card-title">{{ $item->title }}</h5>
             @if ($needCategorySubtitle == true)
-                <h6 class="card-subtitle text-secondary">{{ $CategorySubtitle }}</h6>
+                <h6 class="card-subtitle text-secondary"><?= ($item->category != 'series') ? $item->category : 'Drama Korea' ; ?></h6>
             @endif
           </div>
         </div>

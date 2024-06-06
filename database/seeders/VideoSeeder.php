@@ -52,7 +52,7 @@ class VideoSeeder extends Seeder
         getVideoData(title: "Whenever Possible", release: '2024/04/23 20:20', category: 'variety', rating: 8);
         getVideoData(title: "Abracadabra", release: '2024/06/18');
 
-        $video = Video::factory()->count(20)->state(new Sequence(
+        Video::factory()->count(20)->state(new Sequence(
             ['category' => 'variety', 'release' =>  Carbon::create('2024/06/7'), 'genre' => 'romance'],
             ['category' => 'series', 'release' =>  Carbon::create('2024/06/17'), 'genre' => 'action'],
         ))->create();

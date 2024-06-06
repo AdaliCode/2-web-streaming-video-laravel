@@ -21,6 +21,7 @@ class CategorySeeder extends Seeder
             $category->name = ucwords($name);
             $category->id = Str::slug($category->name);
             $category->save();
+            // $category->videos()->sync([1, 2, 3]);
         }
         getCategoryData();
         getCategoryData('SBS');

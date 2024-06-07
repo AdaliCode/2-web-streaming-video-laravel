@@ -26,15 +26,6 @@ class VideoSeeder extends Seeder
             $video->release = Carbon::create($release);
             // jika udah tayang
             if ($video->release->diffInDays($now) >= 0) {
-                // categorynya variety atau bukan
-                if ($video->category == 'variety') {
-                    $video->episodeNow = floor($video->release->diffInDays($now) / 7 + 1);
-                } else {
-                    $diffEpisode = floor($video->release->diffInDays($now) / 7 + 1); // 1 episode per 1 minggu
-                    // 2 episode berturut turut per 1 minggu
-                    $episodeNow = ($video->release->diffInDays($now) % 7 == 0) ? $diffEpisode * 2 - 1 : $diffEpisode * 2;
-                    $video->episodeNow = $episodeNow;
-                }
                 $video->rating = $rating;
             }
             $video->save();

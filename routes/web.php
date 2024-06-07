@@ -5,19 +5,31 @@ use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 
+
 Route::get('/', function () {
-    $top10videos = Video::paginate(10)->sortByDesc('rating');
-    $series = Video::query()->where('category', 'series')->paginate(8);
-    $variety = Video::query()->where('category', 'variety')->paginate(4);
-    $comingSoon = Video::orderBy('release', 'ASC')->where('episodeNow', 0)->paginate(4);
-    // $findCategory = Category::with('videos')->get();
-    $romanceGenre = Category::find('romance')->videos;
-    // dd($romanceGenre);
+    $top10videos = Category::with(['videos' => function ($query) {
+        $query->orderBy('rating', 'desc')->paginate(10);
+    }])->where(function ($query) {
+        $query->where('name', '=', 'Drama Korea')
+            ->orWhere('name', '=', 'Variety Show Korea');
+    })->get();
+    $comingSoon = Category::with(['videos' => function ($query) {
+        $query->orderBy('release', 'ASC')->where('episodeNow', 0)->paginate(4);
+    }])->get();
+    function categoryVideo($item = 8, $categoryName = 'Drama Korea')
+    {
+        $categoryVideo = Category::with(['videos' => function ($query) use ($item) {
+            $query->paginate($item);
+        }])->where(function ($query) use ($categoryName) {
+            $query->where('name', '=', $categoryName);
+        })->get();
+        return $categoryVideo;
+    }
     return view('home', [
         'top10videos' => $top10videos,
-        'seriesvideos' => $series,
-        'variety' => $variety,
+        'seriesvideos' => categoryVideo(),
+        'variety' => categoryVideo(4, 'Variety Show Korea'),
         'comingSoon' => $comingSoon,
-        'romanceGenre' => $romanceGenre,
+        'romanceGenre' => categoryVideo(8, 'Romance'),
     ]);
 });

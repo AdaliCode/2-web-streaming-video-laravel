@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('slug', 100)->unique();
-            $table->string('category', 100);
-            $table->string('genre', 50);
             $table->dateTime('release');
             $table->integer('episodeNow')->default(0);
             $table->text('description')->nullable();

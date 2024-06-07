@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('episodeNow')->default(0);
             $table->text('description')->nullable();
             $table->float('rating')->nullable();
+            $table->boolean('is_random')->default(false);
             $table->timestamps();
         });
     }
